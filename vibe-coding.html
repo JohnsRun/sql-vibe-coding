@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>动嘴就能写代码：语音对话驱动的 AI 编程</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="02Development_Zone/styles/business.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">动嘴就能写代码：语音对话驱动的 AI 编程</h1>
+</header>
+<h2 id="github-copilot-vibe-coding-实践分享">GitHub Copilot Vibe Coding
+实践分享</h2>
+<hr />
+<h4 id="分享内容">分享内容</h4>
+<ul>
+<li>Vibe Coding</li>
+<li>Instructions</li>
+<li>Agent Skills</li>
+<li>Copilot Approvals And Permissions</li>
+<li>AI Memory</li>
+</ul>
+<h1 id="数据工程师的日常工作">数据工程师的日常工作</h1>
+<p>每天都在做：</p>
+<ul>
+<li>编写 SQL</li>
+<li>开发 Stored Procedure</li>
+<li>数据同步</li>
+<li>ETL 开发</li>
+<li>数据库运维</li>
+<li>数据分析</li>
+</ul>
+<hr />
+<p>传统开发模式</p>
+<div class="mermaid">graph LR
+    A[需求] --> D[写code]
+    D --> E[调试]
+    E -->D</div>
+<hr />
+<p>AI 驱动模式</p>
+<div class="mermaid">graph LR
+    A[需求] --> B[语音对话]
+    B --> C[AI生成code]
+    C --> D[审查和调试]
+    D -->B</div>
+<hr />
+<p>开发者身份转变</p>
+<div class="mermaid">graph LR
+A{Code Writer}-->B{AI Reviewer}</div>
+<hr />
+<h1 id="什么是-vibe-coding">什么是 Vibe Coding</h1>
+<p>通过自然语言甚至语音与 AI 交流，由 AI 完成开发任务。</p>
+<hr />
+<h3 id="数据库开发场景">数据库开发场景</h3>
+<p>工程师：</p>
+<blockquote>
+<p>帮我写一个上月保单续保率SQL，按区域分组</p>
+</blockquote>
+<p>AI：</p>
+<ul>
+<li>编写 SQL</li>
+<li>添加注释</li>
+<li>优化 Join</li>
+</ul>
+<hr />
+<p>工程师：</p>
+<blockquote>
+<p>帮我解释这个GitHub Repo</p>
+</blockquote>
+<p>AI：</p>
+<ul>
+<li>解析项目结构，整理项目架构</li>
+<li>结合上下文分析用户使用习惯</li>
+<li>输出md/html文档</li>
+</ul>
+<hr />
+<p>工程师：</p>
+<blockquote>
+<p>扫描全部logs并整理error报告，要求报告能链接到每个log文件</p>
+</blockquote>
+<p>AI：</p>
+<ul>
+<li>递归扫描所有 log 目录和文件</li>
+<li>提取错误信息、时间戳分类</li>
+<li>生成结构化报告（按错误类型、时间线、严重级别）</li>
+<li>输出 HTML/Markdown 文档，每条错误包含源文件链接</li>
+</ul>
+<hr />
+<p>工程师：</p>
+<blockquote>
+<p>实现一行代码自动创建PR，创建后自动打开网页</p>
+</blockquote>
+<p>AI:</p>
+<ul>
+<li>查阅GitHub CLI文档</li>
+<li>结合workspace和上下文获取repo名字</li>
+<li>生成使用例子</li>
+</ul>
+<hr />
+<h1 id="企业落地面临的问题">企业落地面临的问题</h1>
+<h2 id="为什么-ai-有时候并不好用">为什么 AI 有时候并不好用？</h2>
+<h3 id="问题一缺乏上下文">问题一：缺乏上下文</h3>
+<p>AI 不知道项目背景：</p>
+<ul>
+<li>团队编码规范</li>
+<li>项目架构</li>
+<li>技术栈标准</li>
+<li>…</li>
+</ul>
+<hr />
+<h2 id="典型案例">典型案例</h2>
+<p>同样一句 Prompt</p>
+<p>项目A 输出正确 ✅ 项目B 输出错误 ❌</p>
+<hr />
+<h3 id="问题二不了解业务流程">问题二：不了解业务流程</h3>
+<p>刚落地的 AI 不理解：</p>
+<ul>
+<li>开发工具配置流程</li>
+<li>测试开发流程</li>
+<li>CI/CD流程</li>
+<li>…</li>
+</ul>
+<hr />
+<h2 id="典型案例-1">典型案例</h2>
+<p>安装虚拟环境时，耗费tokens进行试错</p>
+<hr />
+<h3 id="问题三误操作风险">问题三：误操作风险</h3>
+<p>AI 可能生成：</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span></span></code></pre></div>
+<p>或者：</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY</span></code></pre></div>
+<hr />
+<h2 id="最终结果">最终结果</h2>
+<p>程序员为AI背锅</p>
+<hr />
+<h1 id="企业级-ai-四件套">企业级 AI 四件套</h1>
+<h2 id="企业级-copilot-的核心解决方案">企业级 Copilot
+的核心解决方案</h2>
+<table>
+<thead>
+<tr>
+<th>痛点</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不懂项目背景</td>
+<td>Instructions</td>
+</tr>
+<tr>
+<td>不懂业务规则</td>
+<td>Skills</td>
+</tr>
+<tr>
+<td>误删数据</td>
+<td>Approvals &amp; Permissions</td>
+</tr>
+<tr>
+<td>默会知识难以书面表达</td>
+<td>AI Memory</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="解决方案instructions">解决方案：Instructions</h1>
+<p>Custom instructions enable you to define common guidelines and rules
+that automatically influence how AI generates code and handles other
+development tasks</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 39%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>特征</th>
+<th>copilot-instructions</th>
+<th>file-based instructions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>作用范围</strong></td>
+<td>整个workspace的对话</td>
+<td>特定文件的对话（e.g. sql, pkg, &amp;pkb)</td>
+</tr>
+<tr>
+<td><strong>目的</strong></td>
+<td>让AI理解项目背景和规范</td>
+<td>让AI理解特定语言的规范</td>
+</tr>
+<tr>
+<td><strong>创建方式</strong></td>
+<td><code>/init</code> <指令></td>
+<td><code>/create-instructions</code> <指令></td>
+</tr>
+<tr>
+<td><strong>触发方式</strong></td>
+<td>默认始终加载</td>
+<td>根据文件类型、路径或匹配规则自动加载</td>
+</tr>
+<tr>
+<td><strong>文件位置</strong></td>
+<td>.github/copilot-instructions.md</td>
+<td>.github/instructions/*.instructions.md</td>
+</tr>
+<tr>
+<td><strong>典型内容</strong></td>
+<td>架构说明、命名规范、开发流程、代码风格</td>
+<td>SQL规范、PL/SQL规范、Java规范、测试规范等</td>
+</tr>
+</tbody>
+</table>
+<h1 id="解决方案agent-skills">解决方案：Agent Skills</h1>
+<h2 id="prompt-skill">Prompt ≠ Skill</h2>
+<p>很多人认为</p>
+<blockquote>
+<p>text 把Prompt写长一点 = 专家能力</p>
+</blockquote>
+<p>实际上：</p>
+<p><code>text Skill  = Domain Knowledge + Workflow + Best Practice + Tools</code></p>
+<hr />
+<p>目标：</p>
+<blockquote>
+<p>让AI是进行某个专业领域的工作。</p>
+</blockquote>
+<hr />
+<h1 id="database-skill-示例">Database Skill 示例</h1>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 37%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr>
+<th>特征</th>
+<th>/db-query</th>
+<th>/db-action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>领域约束</strong></td>
+<td>限制操作类型（只读）</td>
+<td>限制操作类型（增删改） + 限制执行流程（确认机制）</td>
+</tr>
+<tr>
+<td><strong>安全网</strong></td>
+<td>数据字典 + 结构校验</td>
+<td>生成-执行两步式</td>
+</tr>
+<tr>
+<td><strong>学习价值</strong></td>
+<td>展示<strong>精确边界控制</strong> （白名单方式）</td>
+<td>展示<strong>多层防护体系</strong> （流程+确认）</td>
+</tr>
+<tr>
+<td><strong>业务适配</strong></td>
+<td>为读操作专业化定制</td>
+<td>为写操作设计安全体系</td>
+</tr>
+<tr>
+<td><strong>用例</strong></td>
+<td><code>/db-query 查员工表中1号员工的工资</code></td>
+<td><code>/db-query 查员工表中1号员工的工资</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="database-skill-数据字典">Database Skill 数据字典</h1>
+<p><strong>Staff 员工表</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Chinese</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STAFF_ID</td>
+<td>员工号</td>
+</tr>
+<tr>
+<td>FULL_NAME</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>ADDRESS</td>
+<td>家庭住址</td>
+</tr>
+<tr>
+<td>WAGE_INTERVAL</td>
+<td>工资</td>
+</tr>
+</tbody>
+</table>
+<h1 id="解决方案copilot-approvals-and-permissions">解决方案：Copilot
+Approvals And Permissions</h1>
+<p>Permission levels are the high-level control for how much autonomy
+the agent has during a session.</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr>
+<th>Permission level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Default Approvals</strong> (default)</td>
+<td>Uses your configured approval settings. Tools
+that<strong>require</strong> approval show a confirmation dialog before
+they run. When in doubt, the agent asks clarifying questions.</td>
+</tr>
+<tr>
+<td><strong>Bypass Approvals</strong></td>
+<td>Auto-approves all tool calls<strong>without</strong> showing
+confirmation dialogs. When in doubt, <strong>the agent asks clarifying
+questions.</strong></td>
+</tr>
+<tr>
+<td><strong>Autopilot</strong></td>
+<td>Auto-approves all tool calls<strong>without</strong> showing
+confirmation dialogs. When questions arise, <strong>the agent
+automatically responds</strong> to clarifying questions.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="解决方案-ai-memory">解决方案: AI Memory</h1>
+<p>The memory tool is a built-in agent tool that allows agents to save
+and recall notes as they work</p>
+<h2 id="memory-tool-vs.-copilot-memory">Memory tool vs. Copilot
+Memory</h2>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>Memory tool</th>
+<th>Copilot Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Storage</strong></td>
+<td>Local (on your machine)</td>
+<td>GitHub-hosted (remote)</td>
+</tr>
+<tr>
+<td><strong>Scopes</strong></td>
+<td>User, repository, session</td>
+<td>Repository only</td>
+</tr>
+<tr>
+<td><strong>Shared across Copilot surfaces</strong></td>
+<td>No (VS Code only)</td>
+<td>Yes (coding agent, code review, CLI)</td>
+</tr>
+<tr>
+<td><strong>Created by</strong></td>
+<td>You or the agent during chat</td>
+<td>Copilot agents automatically</td>
+</tr>
+<tr>
+<td><strong>Enabled by default</strong></td>
+<td>Yes</td>
+<td>No (opt-in)</td>
+</tr>
+<tr>
+<td><strong>Expiration</strong></td>
+<td>Manual management</td>
+<td>Automatic (28 days)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="不同memory-tool类型">不同Memory tool类型</h1>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 26%" />
+<col style="width: 27%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Persists<br />across <br />sessions</th>
+<th>Persists<br />across <br />workspaces</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>User</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>记住SQL处理日期时默认使用”YYYY-MM-DD”格式</td>
+</tr>
+<tr>
+<td><strong>Repository</strong></td>
+<td>Yes</td>
+<td>No</td>
+<td>记住这个项目只用PySpark包，不要用Pandas</td>
+</tr>
+<tr>
+<td><strong>Session</strong></td>
+<td>No</td>
+<td>No</td>
+<td>记住我只想你回复英文，无论我问你任何问题</td>
+</tr>
+</tbody>
+</table>
+<p>Remark:</p>
+<blockquote>
+<p>记忆文件路径为
+<code>~/Library/Application Support/Code/User/globalStorage/github.copilot-chat/memory-tool</code></p>
+</blockquote>
+<h1 id="实验-md文档转换html工具">实验： md文档转换html工具</h1>
+<h2 id="user-story">User Story</h2>
+<p>AI生成html文档十分耗费tokens，我希望降低tokens消耗，减少成本。</p>
+<h2 id="techical-design">Techical Design</h2>
+<div class="mermaid">graph LR
+    A[AI]-->B[Markdown];
+    B-->|pwsh| C(HTML);</div>
+<h2 id="prompt">Prompt</h2>
+<p>/plan
+我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</p>
+<p>我要你支持markdown高级图表处理, 包括Mermaid图表</p>
+<p>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</p>
+<p>脚本解决pandoc生成的标题重复问题。</p>
+<h2 id="smoke-test">Smoke Test</h2>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pwsh <span class="op">-</span>File <span class="op">./</span>02Development_Zone<span class="op">/</span>Convert-MarkdownToHtml<span class="op">.</span><span class="fu">ps1</span> \</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span>InputFile vibe-coding<span class="op">.</span><span class="fu">md</span> \</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span>OutputFile vibe-coding<span class="op">.</span><span class="fu">html</span></span></code></pre></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true, theme: "default" });</script>
+</body>
+</html>
+
