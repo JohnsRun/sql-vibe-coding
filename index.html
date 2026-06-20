@@ -9,6 +9,152 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: 1.5em;}
     div.column{flex: auto;}
@@ -93,7 +239,234 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="02Development_Zone/styles/business.css" />
+<style>
+:root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --ink: #1f2933;
+    --muted: #52606d;
+    --line: #d9e2ec;
+    --accent: #0f4c81;
+    --accent-soft: #e6eff7;
+    --shadow: 0 10px 32px rgba(15, 23, 42, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(15, 76, 129, 0.08), transparent 65%),
+        radial-gradient(900px 500px at 100% 0%, rgba(31, 41, 51, 0.06), transparent 70%),
+        var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+}
+
+body {
+    max-width: 920px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+main,
+article,
+body > * {
+    animation: fadeUp 420ms ease-out both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: #102a43;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.35rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p,
+ul,
+ol,
+blockquote {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 0.7rem 0;
+    padding: 0.85rem 1rem;
+}
+
+ul,
+ol {
+    padding-left: 2.1rem;
+}
+
+li + li {
+    margin-top: 0.35rem;
+}
+
+blockquote {
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(90deg, var(--accent-soft), #ffffff 62%);
+    color: #243b53;
+    font-style: normal;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    margin: 1.4rem 0;
+    background: linear-gradient(to right, transparent, var(--line), transparent);
+}
+
+code {
+    font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: #f0f4f8;
+    border: 1px solid #d9e2ec;
+    border-radius: 6px;
+    padding: 0.12em 0.4em;
+}
+
+pre {
+    overflow-x: auto;
+    background: #111827;
+    color: #e5edf5;
+    border-radius: 12px;
+    border: 1px solid #334e68;
+    padding: 1rem;
+}
+
+pre code {
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 0;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(15, 76, 129, 0.35);
+}
+
+a:hover {
+    border-bottom-color: var(--accent);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+th,
+td {
+    border-bottom: 1px solid var(--line);
+    padding: 0.7rem 0.85rem;
+    text-align: left;
+}
+
+th {
+    color: #102a43;
+    background: #f0f4f8;
+    font-weight: 600;
+}
+
+@media (max-width: 720px) {
+    body {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    h1 {
+        font-size: 1.65rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media print {
+    html,
+    body {
+        background: #ffffff;
+    }
+
+    p,
+    ul,
+    ol,
+    blockquote,
+    table {
+        box-shadow: none;
+        border-color: #d5d8dc;
+        break-inside: avoid;
+    }
+
+    a {
+        color: #000000;
+        border-bottom: none;
+    }
+}
+
+/* Code block styling for pandoc-generated content */
+div.sourceCode {
+    background: #111827 !important;
+    border: 1px solid #334e68 !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    overflow-x: auto !important;
+}
+pre.sourceCode {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+code.sourceCode {
+    background: transparent !important;
+    color: #e5edf5 !important;
+    border: none !important;
+    padding: 0 !important;
+}
+</style>
 </head>
 <body>
 <header id="title-block-header">
@@ -200,7 +573,10 @@ A{Code Writer}-->B{AI Reviewer}</div>
 <hr />
 <h2 id="典型案例">典型案例</h2>
 <p>同样一句 Prompt</p>
-<p>项目A 输出正确 ✅ 项目B 输出错误 ❌</p>
+<ul>
+<li>项目A 输出正确 ✅</li>
+<li>项目B 输出错误 ❌</li>
+</ul>
 <hr />
 <h3 id="问题二不了解业务流程">问题二：不了解业务流程</h3>
 <p>刚落地的 AI 不理解：</p>
@@ -216,8 +592,7 @@ A{Code Writer}-->B{AI Reviewer}</div>
 <hr />
 <h3 id="问题三误操作风险">问题三：误操作风险</h3>
 <p>AI 可能生成：</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span></span></code></pre></div>
+<pre class="shell"><code>rm -rf</code></pre>
 <p>或者：</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY</span></code></pre></div>
@@ -526,16 +901,20 @@ Memory</h2>
     A[AI]-->B[Markdown];
     B-->|pwsh| C(HTML);</div>
 <h2 id="prompt">Prompt</h2>
-<p>/plan
-我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</p>
-<p>我要你支持markdown高级图表处理, 包括Mermaid图表</p>
-<p>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</p>
-<p>脚本解决pandoc生成的标题重复问题。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
 <h2 id="smoke-test">Smoke Test</h2>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pwsh <span class="op">-</span>File <span class="op">./</span>02Development_Zone<span class="op">/</span>Convert-MarkdownToHtml<span class="op">.</span><span class="fu">ps1</span> \</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span>InputFile vibe-coding<span class="op">.</span><span class="fu">md</span> \</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span>OutputFile vibe-coding<span class="op">.</span><span class="fu">html</span></span></code></pre></div>
+<pre class="shell"><code>pwsh -File ./02Development_Zone/Convert-MarkdownToHtml.ps1 \
+        -InputFile vibe-coding.md \
+        -OutputFile vibe-coding.html</code></pre>
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({ startOnLoad: true, theme: "default" });</script>
 </body>
