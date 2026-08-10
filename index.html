@@ -472,7 +472,7 @@ code.sourceCode {
 <header id="title-block-header">
 <h1 class="title">动嘴就能写代码：语音对话驱动的 AI 编程</h1>
 </header>
-<h2 id="github-copilot-vibe-coding-实践分享" style="width: 60%;margin: auto;">GitHub Copilot Vibe Coding
+<h2 id="github-copilot-vibe-coding-实践分享">GitHub Copilot Vibe Coding
 实践分享</h2>
 <hr />
 <h4 id="分享内容">分享内容</h4>
@@ -513,11 +513,22 @@ A{Code Writer}-->B{AI Reviewer}</div>
 <hr />
 <h1 id="什么是-vibe-coding">什么是 Vibe Coding</h1>
 <p>通过自然语言与 AI 交流，由 AI 完成开发任务。</p>
+<p><strong>Option 1</strong></p>
+<p><a
+href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-speech-language-pack-zh-cn">VS
+Code Speech Extension</a></p>
 <figure>
 <img src="image/vibe-coding/1782010150610.png"
 alt="微软出品VS Code Speech支持粤语、国语和英语等多种语言。" />
 <figcaption aria-hidden="true">微软出品VS Code
 Speech支持粤语、国语和英语等多种语言。</figcaption>
+</figure>
+<p><strong>Option 2</strong> <a
+href="https://code.visualstudio.com/docs/configure/accessibility/voice#_use-built-in-dictation">Built-in
+dictation in VS Code</a></p>
+<figure>
+<img src="image/vibe-coding/Built-in.png" alt="Built-in dictation" />
+<figcaption aria-hidden="true">Built-in dictation</figcaption>
 </figure>
 <hr />
 <h3 id="数据库开发场景">数据库开发场景</h3>
@@ -534,7 +545,7 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 <hr />
 <p>工程师：</p>
 <blockquote>
-<p>帮我解释这个GitHub Repo</p>
+<p>帮我写个文档介绍这个GitHub Repo</p>
 </blockquote>
 <p>AI：</p>
 <ul>
@@ -578,10 +589,10 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 </ul>
 <hr />
 <h2 id="典型案例">典型案例</h2>
-<p>同样一句 Prompt</p>
+<p>同样一句 Prompt生成的代码</p>
 <ul>
-<li>项目A 输出正确 ✅</li>
-<li>项目B 输出错误 ❌</li>
+<li>项目A 输出运行正常 ✅</li>
+<li>项目B 输出运行报错 ❌</li>
 </ul>
 <hr />
 <h3 id="问题二不了解业务流程">问题二：不了解业务流程</h3>
@@ -594,7 +605,7 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 </ul>
 <hr />
 <h2 id="典型案例-1">典型案例</h2>
-<p>安装虚拟环境时，耗费tokens进行试错</p>
+<p>通过上传文件方式让AI分析Jira/GitHub页面内容，而不是使用MCP获取。</p>
 <hr />
 <h3 id="问题三误操作风险">问题三：误操作风险</h3>
 <p>AI 可能生成：</p>
@@ -643,8 +654,8 @@ development tasks</p>
 <table>
 <colgroup>
 <col style="width: 18%" />
-<col style="width: 39%" />
-<col style="width: 42%" />
+<col style="width: 38%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr>
@@ -682,10 +693,20 @@ development tasks</p>
 <tr>
 <td><strong>典型内容</strong></td>
 <td>架构说明、命名规范、开发流程、代码风格</td>
-<td>SQL规范、PL/SQL规范、Java规范、测试规范等</td>
+<td>SQL规范、数据库连接规范、测试用例生成规范等</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Prompt for Creating Python File-based
+Instruction</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>/create-instructions  我需要创建一个python文件的规范。 我要求所有在python里面要连接数据库必须要用到oracle d b这个包</span></code></pre></div>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p><a
+href=".github/copilot-instructions.md">copilot-instructions.md</a></p></li>
+<li><p><a
+href=".github/instructions/sql-script-standard.instructions.md">sql-script-standard.instructions.md</a></p></li>
+</ul>
 <h1 id="解决方案agent-skills">解决方案：Agent Skills</h1>
 <h2 id="prompt-skill">Prompt ≠ Skill</h2>
 <p>很多人认为</p>
@@ -907,16 +928,16 @@ Memory</h2>
     A[AI]-->B[Markdown];
     B-->|pwsh| C(HTML);</div>
 <h2 id="prompt">Prompt</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
 <h2 id="smoke-test">Smoke Test</h2>
 <pre class="shell"><code>pwsh -File ./02Development_Zone/Convert-MarkdownToHtml.ps1 \
         -InputFile vibe-coding.md \
