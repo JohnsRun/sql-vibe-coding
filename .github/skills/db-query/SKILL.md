@@ -82,6 +82,7 @@ When querying Chinese personal names or similar multi-character fields:
    - Or fuzzy: `WHERE LAST_NAME LIKE '%范%' OR FIRST_NAME LIKE '%冰冰%'`
 3. **Always validate** by querying sample records first before filtering
 4. **Document findings** in query comments for future reference
+5. For the columns shown in the output, it must be Esnglish columns names.
 
 ## Oracle MCP Usage - Automated Workflow
 
@@ -92,9 +93,9 @@ When querying Chinese personal names or similar multi-character fields:
    - If no → proceed to step 2
 
 2. Resolve database/environment names case-insensitively (default: `DEV`):
-   - `DEV` / `dev` → `Oracle_DEV`
-   - `UAT` / `uat` → `Oracle_UAT`
-   - `PROD` / `prod` → `Oracle_PROD`
+   - `开发`/ `DEV` / `dev` → `Oracle_DEV`
+   - `测试`/`UAT` / `uat` → `Oracle_UAT`
+   - `生产`/`PROD` / `prod` → `Oracle_PROD`
 
 3. List available saved connections
    - If resolved connection exists → auto-connect to it

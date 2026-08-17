@@ -531,7 +531,7 @@ dictation in VS Code</a></p>
 <figcaption aria-hidden="true">Built-in dictation</figcaption>
 </figure>
 <hr />
-<h3 id="数据库开发场景">数据库开发场景</h3>
+<h3 id="数据库vibe-coding应用场景">数据库vibe coding应用场景</h3>
 <p>工程师：</p>
 <blockquote>
 <p>帮我写一个上月保单续保率SQL，按区域分组</p>
@@ -540,7 +540,7 @@ dictation in VS Code</a></p>
 <ul>
 <li>编写 SQL</li>
 <li>添加注释</li>
-<li>优化 Join</li>
+<li>性能优化 SQL</li>
 </ul>
 <hr />
 <p>工程师：</p>
@@ -550,7 +550,7 @@ dictation in VS Code</a></p>
 <p>AI：</p>
 <ul>
 <li>解析项目结构，整理项目架构</li>
-<li>结合上下文分析用户使用习惯</li>
+<li>结合上下文分析代码规范</li>
 <li>输出md/html文档</li>
 </ul>
 <hr />
@@ -577,6 +577,16 @@ dictation in VS Code</a></p>
 <li>生成使用例子</li>
 </ul>
 <hr />
+<p>工程师：</p>
+<blockquote>
+<p>/prompt-coach 我有一大堆模糊的想法，你帮我整理，并且结构化输出</p>
+</blockquote>
+<p>AI：</p>
+<ul>
+<li>剔除口头禅和无用信息</li>
+<li>结构化整理，转换成更适合执行的 Prompt</li>
+</ul>
+<hr />
 <h1 id="企业落地面临的问题">企业落地面临的问题</h1>
 <h2 id="为什么-ai-有时候并不好用">为什么 AI 有时候并不好用？</h2>
 <h3 id="问题一缺乏上下文">问题一：缺乏上下文</h3>
@@ -589,7 +599,7 @@ dictation in VS Code</a></p>
 </ul>
 <hr />
 <h2 id="典型案例">典型案例</h2>
-<p>同样一句 Prompt生成的代码</p>
+<p>同样一句 Prompt生成的代码，在2个类似的项目</p>
 <ul>
 <li>项目A 输出运行正常 ✅</li>
 <li>项目B 输出运行报错 ❌</li>
@@ -605,20 +615,21 @@ dictation in VS Code</a></p>
 </ul>
 <hr />
 <h2 id="典型案例-1">典型案例</h2>
-<p>通过上传文件方式让AI分析Jira/GitHub页面内容，而不是使用MCP获取。</p>
+<p>AI生成的代码独立于Jira和GitHub issue中的信息。
+需要截图上传文档/认为二次输入背景说明，才能完成任务。</p>
 <hr />
 <h3 id="问题三误操作风险">问题三：误操作风险</h3>
 <p>AI 可能生成：</p>
 <pre class="shell"><code>rm -rf</code></pre>
 <p>或者：</p>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY</span></code></pre></div>
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY_MASTER;</span></code></pre></div>
 <hr />
 <h2 id="最终结果">最终结果</h2>
 <p>程序员为AI背锅</p>
 <hr />
 <h1 id="企业级-ai-四件套">企业级 AI 四件套</h1>
-<h2 id="企业级-copilot-的核心解决方案">企业级 Copilot
+<h2 id="企业级-github-copilot-的核心解决方案">企业级 GitHub Copilot
 的核心解决方案</h2>
 <table>
 <thead>
@@ -758,36 +769,47 @@ href=".github/instructions/sql-script-standard.instructions.md">sql-script-stand
 </tr>
 <tr>
 <td><strong>用例</strong></td>
-<td><code>/db-query 查员工表中1号员工的工资</code></td>
+<td><code>/db-query 查员工表中,成龙的工资</code></td>
 <td><code>/db-query 查员工表中1号员工的工资</code></td>
 </tr>
 </tbody>
 </table>
-<h1 id="database-skill-数据字典">Database Skill 数据字典</h1>
-<p><strong>Staff 员工表</strong></p>
+<h1 id="github-cli-skill-示例">GitHub CLI Skill 示例</h1>
+<p>除了数据库场景，GitHub
+操作也很适合被封装成一个可复用技能。<code>gh</code>
+命令可以统一管理仓库、Issue、PR、分支、提交记录和
+Release，同时通过认证检查和确认机制降低误操作风险。</p>
 <table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
 <thead>
 <tr>
-<th>Item</th>
-<th>Chinese</th>
+<th>特征</th>
+<th>/github-cli</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>STAFF_ID</td>
-<td>员工号</td>
+<td><strong>领域约束</strong></td>
+<td>限制操作范围（GitHub CLI）+ 统一命令风格</td>
 </tr>
 <tr>
-<td>FULL_NAME</td>
-<td>姓名</td>
+<td><strong>安全网</strong></td>
+<td>认证状态检查 + 参数展示 + 确认机制 + 破坏性操作拦截</td>
 </tr>
 <tr>
-<td>ADDRESS</td>
-<td>家庭住址</td>
+<td><strong>学习价值</strong></td>
+<td>展示“工具型技能”封装方式：命令、参数、输出处理、风险控制</td>
 </tr>
 <tr>
-<td>WAGE_INTERVAL</td>
-<td>工资</td>
+<td><strong>业务适配</strong></td>
+<td>适合仓库、Issue、PR、分支、Release 等日常 GitHub 工作</td>
+</tr>
+<tr>
+<td><strong>用例</strong></td>
+<td><code>/github-cli 检查目前有几个PR待审批</code></td>
 </tr>
 </tbody>
 </table>
@@ -905,7 +927,7 @@ Memory</h2>
 <td><strong>Repository</strong></td>
 <td>Yes</td>
 <td>No</td>
-<td>记住这个项目只用PySpark包，不要用Pandas</td>
+<td>记住这个项目的建表语句只使用Create TABLE </td>
 </tr>
 <tr>
 <td><strong>Session</strong></td>
