@@ -67,7 +67,7 @@ try {
     $OutputFile = Resolve-AbsolutePath -Path $OutputFile -BasePath $repoRoot
 
     if ([string]::IsNullOrWhiteSpace($CssFile)) {
-        $CssFile = Join-Path $repoRoot '02Development_Zone/styles/business.css'
+pment_Zone/styles/business.css'
     }
     $CssFile = Resolve-AbsolutePath -Path $CssFile -BasePath $repoRoot
 

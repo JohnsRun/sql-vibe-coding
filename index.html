@@ -589,7 +589,7 @@ dictation in VS Code</a></p>
 <hr />
 <h1 id="企业落地面临的问题">企业落地面临的问题</h1>
 <h2 id="为什么-ai-有时候并不好用">为什么 AI 有时候并不好用？</h2>
-<h3 id="问题一缺乏上下文">问题一：缺乏上下文</h3>
+<h3 id="原因一缺乏上下文">原因一：缺乏上下文</h3>
 <p>AI 不知道项目背景：</p>
 <ul>
 <li>团队编码规范</li>
@@ -605,7 +605,7 @@ dictation in VS Code</a></p>
 <li>项目B 输出运行报错 ❌</li>
 </ul>
 <hr />
-<h3 id="问题二不了解业务流程">问题二：不了解业务流程</h3>
+<h3 id="原因二不了解业务流程">原因二：不了解业务流程</h3>
 <p>刚落地的 AI 不理解：</p>
 <ul>
 <li>开发工具配置流程</li>
@@ -618,7 +618,7 @@ dictation in VS Code</a></p>
 <p>AI生成的代码独立于Jira和GitHub issue中的信息。
 需要截图上传文档/认为二次输入背景说明，才能完成任务。</p>
 <hr />
-<h3 id="问题三误操作风险">问题三：误操作风险</h3>
+<h3 id="原因三误操作风险">原因三：误操作风险</h3>
 <p>AI 可能生成：</p>
 <pre class="shell"><code>rm -rf</code></pre>
 <p>或者：</p>
@@ -658,7 +658,7 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#c
 </tbody>
 </table>
 <hr />
-<h1 id="解决方案instructions">解决方案：Instructions</h1>
+<h1 id="解决方案-1instructions">解决方案 1：Instructions</h1>
 <p>Custom instructions enable you to define common guidelines and rules
 that automatically influence how AI generates code and handles other
 development tasks</p>
@@ -718,7 +718,7 @@ href=".github/copilot-instructions.md">copilot-instructions.md</a></p></li>
 <li><p><a
 href=".github/instructions/sql-script-standard.instructions.md">sql-script-standard.instructions.md</a></p></li>
 </ul>
-<h1 id="解决方案agent-skills">解决方案：Agent Skills</h1>
+<h1 id="解决方案-2agent-skills">解决方案 2：Agent Skills</h1>
 <h2 id="prompt-skill">Prompt ≠ Skill</h2>
 <p>很多人认为</p>
 <blockquote>
@@ -770,7 +770,7 @@ href=".github/instructions/sql-script-standard.instructions.md">sql-script-stand
 <tr>
 <td><strong>用例</strong></td>
 <td><code>/db-query 查员工表中,成龙的工资</code></td>
-<td><code>/db-query 查员工表中1号员工的工资</code></td>
+<td><code>/db-action 修改员工表中1号员工的工资为1000</code></td>
 </tr>
 </tbody>
 </table>
@@ -813,7 +813,7 @@ Release，同时通过认证检查和确认机制降低误操作风险。</p>
 </tr>
 </tbody>
 </table>
-<h1 id="解决方案copilot-approvals-and-permissions">解决方案：Copilot
+<h1 id="解决方案-3copilot-approvals-and-permissions">解决方案 3：Copilot
 Approvals And Permissions</h1>
 <p>Permission levels are the high-level control for how much autonomy
 the agent has during a session.</p>
@@ -830,26 +830,26 @@ the agent has during a session.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Default Approvals</strong> (default)</td>
+<td><strong>Default Permission</strong></td>
 <td>Uses your configured approval settings. Tools
 that<strong>require</strong> approval show a confirmation dialog before
 they run. When in doubt, the agent asks clarifying questions.</td>
 </tr>
 <tr>
-<td><strong>Bypass Approvals</strong></td>
-<td>Auto-approves all tool calls<strong>without</strong> showing
+<td><strong>Allow All</strong></td>
+<td>Auto-approves all tool calls <strong>without</strong> showing
 confirmation dialogs. When in doubt, <strong>the agent asks clarifying
 questions.</strong></td>
 </tr>
 <tr>
 <td><strong>Autopilot</strong></td>
-<td>Auto-approves all tool calls<strong>without</strong> showing
+<td>Auto-approves all tool calls <strong>without</strong> showing
 confirmation dialogs. When questions arise, <strong>the agent
 automatically responds</strong> to clarifying questions.</td>
 </tr>
 </tbody>
 </table>
-<h1 id="解决方案-ai-memory">解决方案: AI Memory</h1>
+<h1 id="解决方案-4-ai-memory">解决方案 4: AI Memory</h1>
 <p>The memory tool is a built-in agent tool that allows agents to save
 and recall notes as they work</p>
 <h2 id="memory-tool-vs.-copilot-memory">Memory tool vs. Copilot
