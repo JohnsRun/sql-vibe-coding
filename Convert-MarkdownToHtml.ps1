@@ -48,7 +48,7 @@ function Get-MarkdownTitle {
 }
 
 try {
-    $repoRoot = Resolve-AbsolutePath -Path '..' -BasePath $PSScriptRoot
+    $repoRoot = Resolve-AbsolutePath -Path '.' -BasePath $PSScriptRoot
 
     if ([string]::IsNullOrWhiteSpace($InputFile)) {
         $InputFile = Join-Path $repoRoot '03Test/01test-case.md'
@@ -67,7 +67,15 @@ try {
     $OutputFile = Resolve-AbsolutePath -Path $OutputFile -BasePath $repoRoot
 
     if ([string]::IsNullOrWhiteSpace($CssFile)) {
-pment_Zone/styles/business.css'
+        $primaryCss = Join-Path $repoRoot 'styles/business.css'
+        $legacyCss  = Join-Path $repoRoot 'vibe-coding/02Development_Zone/styles/business.css'
+
+        if (Test-Path -Path $primaryCss -PathType Leaf) {
+            $CssFile = $primaryCss
+        }
+        else {
+            $CssFile = $legacyCss
+        }
     }
     $CssFile = Resolve-AbsolutePath -Path $CssFile -BasePath $repoRoot
 
@@ -148,11 +156,11 @@ code.sourceCode {
         [System.Text.RegularExpressions.MatchEvaluator] {
             param($m)
             $inner = $m.Groups[1].Value.Trim()
-            $inner = $inner -replace '&lt;',  '<' `
-                            -replace '&gt;',  '>' `
-                            -replace '&amp;', '&' `
-                            -replace '&quot;', '"' `
-                            -replace '&#39;', "'"
+            $inner = $inner -replace '&lt;',  '<'
+            $inner = $inner -replace '&gt;',  '>'
+            $inner = $inner -replace '&amp;', '&'
+            $inner = $inner -replace '&quot;', '"'
+            $inner = $inner -replace '&#39;', "'"
             return "<div class=`"mermaid`">$inner</div>"
         }
     )
