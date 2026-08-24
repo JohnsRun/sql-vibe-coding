@@ -472,7 +472,7 @@ code.sourceCode {
 <header id="title-block-header">
 <h1 class="title">动嘴就能写代码：语音对话驱动的 AI 编程</h1>
 </header>
-<h2 id="github-copilot-vibe-coding-实践分享" style="width: 60%;margin: auto;">GitHub Copilot Vibe Coding
+<h2 id="github-copilot-vibe-coding-实践分享">GitHub Copilot Vibe Coding
 实践分享</h2>
 <hr />
 <h4 id="分享内容">分享内容</h4>
@@ -513,14 +513,25 @@ A{Code Writer}-->B{AI Reviewer}</div>
 <hr />
 <h1 id="什么是-vibe-coding">什么是 Vibe Coding</h1>
 <p>通过自然语言与 AI 交流，由 AI 完成开发任务。</p>
+<p><strong>Option 1</strong></p>
+<p><a
+href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-speech-language-pack-zh-cn">VS
+Code Speech Extension</a></p>
 <figure>
 <img src="image/vibe-coding/1782010150610.png"
 alt="微软出品VS Code Speech支持粤语、国语和英语等多种语言。" />
 <figcaption aria-hidden="true">微软出品VS Code
 Speech支持粤语、国语和英语等多种语言。</figcaption>
 </figure>
+<p><strong>Option 2</strong> <a
+href="https://code.visualstudio.com/docs/configure/accessibility/voice#_use-built-in-dictation">Built-in
+dictation in VS Code</a></p>
+<figure>
+<img src="image/vibe-coding/Built-in.png" alt="Built-in dictation" />
+<figcaption aria-hidden="true">Built-in dictation</figcaption>
+</figure>
 <hr />
-<h3 id="数据库开发场景">数据库开发场景</h3>
+<h3 id="数据库vibe-coding应用场景">数据库vibe coding应用场景</h3>
 <p>工程师：</p>
 <blockquote>
 <p>帮我写一个上月保单续保率SQL，按区域分组</p>
@@ -529,17 +540,17 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 <ul>
 <li>编写 SQL</li>
 <li>添加注释</li>
-<li>优化 Join</li>
+<li>性能优化 SQL</li>
 </ul>
 <hr />
 <p>工程师：</p>
 <blockquote>
-<p>帮我解释这个GitHub Repo</p>
+<p>帮我写个文档介绍这个GitHub Repo</p>
 </blockquote>
 <p>AI：</p>
 <ul>
 <li>解析项目结构，整理项目架构</li>
-<li>结合上下文分析用户使用习惯</li>
+<li>结合上下文分析代码规范</li>
 <li>输出md/html文档</li>
 </ul>
 <hr />
@@ -566,9 +577,19 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 <li>生成使用例子</li>
 </ul>
 <hr />
+<p>工程师：</p>
+<blockquote>
+<p>/prompt-coach 我有一大堆模糊的想法，你帮我整理，并且结构化输出</p>
+</blockquote>
+<p>AI：</p>
+<ul>
+<li>剔除口头禅和无用信息</li>
+<li>结构化整理，转换成更适合执行的 Prompt</li>
+</ul>
+<hr />
 <h1 id="企业落地面临的问题">企业落地面临的问题</h1>
 <h2 id="为什么-ai-有时候并不好用">为什么 AI 有时候并不好用？</h2>
-<h3 id="问题一缺乏上下文">问题一：缺乏上下文</h3>
+<h3 id="原因一缺乏上下文">原因一：缺乏上下文</h3>
 <p>AI 不知道项目背景：</p>
 <ul>
 <li>团队编码规范</li>
@@ -578,13 +599,13 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 </ul>
 <hr />
 <h2 id="典型案例">典型案例</h2>
-<p>同样一句 Prompt</p>
+<p>同样一句 Prompt生成的代码，在2个类似的项目</p>
 <ul>
-<li>项目A 输出正确 ✅</li>
-<li>项目B 输出错误 ❌</li>
+<li>项目A 输出运行正常 ✅</li>
+<li>项目B 输出运行报错 ❌</li>
 </ul>
 <hr />
-<h3 id="问题二不了解业务流程">问题二：不了解业务流程</h3>
+<h3 id="原因二不了解业务流程">原因二：不了解业务流程</h3>
 <p>刚落地的 AI 不理解：</p>
 <ul>
 <li>开发工具配置流程</li>
@@ -594,20 +615,21 @@ Speech支持粤语、国语和英语等多种语言。</figcaption>
 </ul>
 <hr />
 <h2 id="典型案例-1">典型案例</h2>
-<p>安装虚拟环境时，耗费tokens进行试错</p>
+<p>AI生成的代码独立于Jira和GitHub issue中的信息。
+需要截图上传文档/认为二次输入背景说明，才能完成任务。</p>
 <hr />
-<h3 id="问题三误操作风险">问题三：误操作风险</h3>
+<h3 id="原因三误操作风险">原因三：误操作风险</h3>
 <p>AI 可能生成：</p>
 <pre class="shell"><code>rm -rf</code></pre>
 <p>或者：</p>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY</span></code></pre></div>
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> POLICY_MASTER;</span></code></pre></div>
 <hr />
 <h2 id="最终结果">最终结果</h2>
 <p>程序员为AI背锅</p>
 <hr />
 <h1 id="企业级-ai-四件套">企业级 AI 四件套</h1>
-<h2 id="企业级-copilot-的核心解决方案">企业级 Copilot
+<h2 id="企业级-github-copilot-的核心解决方案">企业级 GitHub Copilot
 的核心解决方案</h2>
 <table>
 <thead>
@@ -636,15 +658,15 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#c
 </tbody>
 </table>
 <hr />
-<h1 id="解决方案instructions">解决方案：Instructions</h1>
+<h1 id="解决方案-1instructions">解决方案 1：Instructions</h1>
 <p>Custom instructions enable you to define common guidelines and rules
 that automatically influence how AI generates code and handles other
 development tasks</p>
 <table>
 <colgroup>
 <col style="width: 18%" />
-<col style="width: 39%" />
-<col style="width: 42%" />
+<col style="width: 38%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr>
@@ -682,11 +704,21 @@ development tasks</p>
 <tr>
 <td><strong>典型内容</strong></td>
 <td>架构说明、命名规范、开发流程、代码风格</td>
-<td>SQL规范、PL/SQL规范、Java规范、测试规范等</td>
+<td>SQL规范、数据库连接规范、测试用例生成规范等</td>
 </tr>
 </tbody>
 </table>
-<h1 id="解决方案agent-skills">解决方案：Agent Skills</h1>
+<p><strong>Prompt for Creating Python File-based
+Instruction</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>/create-instructions  我需要创建一个python文件的规范。 我要求所有在python里面要连接数据库必须要用到oracle d b这个包</span></code></pre></div>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p><a
+href=".github/copilot-instructions.md">copilot-instructions.md</a></p></li>
+<li><p><a
+href=".github/instructions/sql-script-standard.instructions.md">sql-script-standard.instructions.md</a></p></li>
+</ul>
+<h1 id="解决方案-2agent-skills">解决方案 2：Agent Skills</h1>
 <h2 id="prompt-skill">Prompt ≠ Skill</h2>
 <p>很多人认为</p>
 <blockquote>
@@ -737,40 +769,52 @@ development tasks</p>
 </tr>
 <tr>
 <td><strong>用例</strong></td>
-<td><code>/db-query 查员工表中1号员工的工资</code></td>
-<td><code>/db-query 查员工表中1号员工的工资</code></td>
+<td><code>/db-query 查员工表中,成龙的工资</code> <br>
+<code>/db-query 修改员工表中成龙的工资为20000</code></td>
+<td><code>/db-action 修改员工表中成龙的工资为20000</code></td>
 </tr>
 </tbody>
 </table>
-<h1 id="database-skill-数据字典">Database Skill 数据字典</h1>
-<p><strong>Staff 员工表</strong></p>
+<h1 id="github-cli-skill-示例">GitHub CLI Skill 示例</h1>
+<p>除了数据库场景，GitHub
+操作也很适合被封装成一个可复用技能。<code>gh</code>
+命令可以统一管理仓库、Issue、PR、分支、提交记录和
+Release，同时通过认证检查和确认机制降低误操作风险。</p>
 <table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
 <thead>
 <tr>
-<th>Item</th>
-<th>Chinese</th>
+<th>特征</th>
+<th>/github-cli</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>STAFF_ID</td>
-<td>员工号</td>
+<td><strong>领域约束</strong></td>
+<td>限制操作范围（GitHub CLI）+ 统一命令风格</td>
 </tr>
 <tr>
-<td>FULL_NAME</td>
-<td>姓名</td>
+<td><strong>安全网</strong></td>
+<td>认证状态检查 + 参数展示 + 确认机制 + 破坏性操作拦截</td>
 </tr>
 <tr>
-<td>ADDRESS</td>
-<td>家庭住址</td>
+<td><strong>学习价值</strong></td>
+<td>展示“工具型技能”封装方式：命令、参数、输出处理、风险控制</td>
 </tr>
 <tr>
-<td>WAGE_INTERVAL</td>
-<td>工资</td>
+<td><strong>业务适配</strong></td>
+<td>适合仓库、Issue、PR、分支、Release 等日常 GitHub 工作</td>
+</tr>
+<tr>
+<td><strong>用例</strong></td>
+<td><code>/github-cli 检查目前有几个PR待审批</code></td>
 </tr>
 </tbody>
 </table>
-<h1 id="解决方案copilot-approvals-and-permissions">解决方案：Copilot
+<h1 id="解决方案-3copilot-approvals-and-permissions">解决方案 3：Copilot
 Approvals And Permissions</h1>
 <p>Permission levels are the high-level control for how much autonomy
 the agent has during a session.</p>
@@ -787,26 +831,26 @@ the agent has during a session.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Default Approvals</strong> (default)</td>
+<td><strong>Default Permission</strong></td>
 <td>Uses your configured approval settings. Tools
 that<strong>require</strong> approval show a confirmation dialog before
 they run. When in doubt, the agent asks clarifying questions.</td>
 </tr>
 <tr>
-<td><strong>Bypass Approvals</strong></td>
-<td>Auto-approves all tool calls<strong>without</strong> showing
+<td><strong>Allow All</strong></td>
+<td>Auto-approves all tool calls <strong>without</strong> showing
 confirmation dialogs. When in doubt, <strong>the agent asks clarifying
 questions.</strong></td>
 </tr>
 <tr>
 <td><strong>Autopilot</strong></td>
-<td>Auto-approves all tool calls<strong>without</strong> showing
+<td>Auto-approves all tool calls <strong>without</strong> showing
 confirmation dialogs. When questions arise, <strong>the agent
 automatically responds</strong> to clarifying questions.</td>
 </tr>
 </tbody>
 </table>
-<h1 id="解决方案-ai-memory">解决方案: AI Memory</h1>
+<h1 id="解决方案-4-ai-memory">解决方案 4: AI Memory</h1>
 <p>The memory tool is a built-in agent tool that allows agents to save
 and recall notes as they work</p>
 <h2 id="memory-tool-vs.-copilot-memory">Memory tool vs. Copilot
@@ -884,7 +928,7 @@ Memory</h2>
 <td><strong>Repository</strong></td>
 <td>Yes</td>
 <td>No</td>
-<td>记住这个项目只用PySpark包，不要用Pandas</td>
+<td>记住这个项目的建表语句只使用Create TABLE </td>
 </tr>
 <tr>
 <td><strong>Session</strong></td>
@@ -897,30 +941,31 @@ Memory</h2>
 <p>Remark:</p>
 <blockquote>
 <p>记忆文件路径为
-<code>~/Library/Application Support/Code/User/globalStorage/github.copilot-chat/memory-tool</code></p>
+<code>"$HOME/Library/Application Support/Code/User/globalStorage/github.copilot-chat/memory-tool"</code></p>
 </blockquote>
 <h1 id="实验-md文档转换html工具">实验： md文档转换html工具</h1>
 <h2 id="user-story">User Story</h2>
-<p>AI生成html文档十分耗费tokens，我希望降低tokens消耗，减少成本。</p>
+<p>我希望减少 AI 生成 HTML 文档时的 token
+消耗，以降低成本并提升效率。</p>
 <h2 id="techical-design">Techical Design</h2>
 <div class="mermaid">graph LR
     A[AI]-->B[Markdown];
     B-->|pwsh| C(HTML);</div>
 <h2 id="prompt">Prompt</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
 <h2 id="smoke-test">Smoke Test</h2>
-<pre class="shell"><code>pwsh -File ./02Development_Zone/Convert-MarkdownToHtml.ps1 \
-        -InputFile vibe-coding.md \
-        -OutputFile vibe-coding.html</code></pre>
+<pre class="shell"><code>pwsh -File ./Convert-MarkdownToHtml.ps1 \
+                       -InputFile test.md \
+                      -OutputFile test.html</code></pre>
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({ startOnLoad: true, theme: "default" });</script>
 </body>

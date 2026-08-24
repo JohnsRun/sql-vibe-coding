@@ -4,7 +4,5 @@
 
 
 ```powershell
-pwsh -File ./02Development_Zone/Convert-MarkdownToHtml.ps1 \
-        -InputFile vibe-coding.md \
-        -OutputFile vibe-coding.html
+pwsh -File ./Convert-MarkdownToHtml.ps1 -InputFile test.md -OutputFile test.html
 ```
