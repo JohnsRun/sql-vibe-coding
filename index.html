@@ -479,7 +479,7 @@ code.sourceCode {
 <ul>
 <li>Vibe Coding</li>
 <li>Instructions</li>
-<li>Agent Skills</li>
+<li>Agent</li>
 <li>Copilot Approvals And Permissions</li>
 <li>AI Memory</li>
 </ul>
@@ -645,7 +645,7 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#c
 </tr>
 <tr>
 <td>不懂业务规则</td>
-<td>Skills</td>
+<td>Agent</td>
 </tr>
 <tr>
 <td>误删数据</td>
@@ -718,21 +718,21 @@ href=".github/copilot-instructions.md">copilot-instructions.md</a></p></li>
 <li><p><a
 href=".github/instructions/sql-script-standard.instructions.md">sql-script-standard.instructions.md</a></p></li>
 </ul>
-<h1 id="解决方案-2agent-skills">解决方案 2：Agent Skills</h1>
-<h2 id="prompt-skill">Prompt ≠ Skill</h2>
+<h1 id="解决方案-2agent">解决方案 2：Agent</h1>
+<h2 id="prompt-agent">Prompt ≠ Agent</h2>
 <p>很多人认为</p>
 <blockquote>
 <p>text 把Prompt写长一点 = 专家能力</p>
 </blockquote>
 <p>实际上：</p>
-<p><code>text Skill  = Domain Knowledge + Workflow + Best Practice + Tools</code></p>
+<p><code>Agent  = Domain Knowledge + Workflow + Best Practice + Tools</code></p>
 <hr />
 <p>目标：</p>
 <blockquote>
 <p>让AI是进行某个专业领域的工作。</p>
 </blockquote>
 <hr />
-<h1 id="database-skill-示例">Database Skill 示例</h1>
+<h1 id="database-agent-示例">Database Agent 示例</h1>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -742,8 +742,8 @@ href=".github/instructions/sql-script-standard.instructions.md">sql-script-stand
 <thead>
 <tr>
 <th>特征</th>
-<th>/db-query</th>
-<th>/db-action</th>
+<th>DB_Query_Agent</th>
+<th>DB_Action_Agent</th>
 </tr>
 </thead>
 <tbody>
@@ -769,51 +769,43 @@ href=".github/instructions/sql-script-standard.instructions.md">sql-script-stand
 </tr>
 <tr>
 <td><strong>用例</strong></td>
-<td><code>/db-query 查员工表中,成龙的工资</code> <br>
-<code>/db-query 修改员工表中成龙的工资为20000</code></td>
-<td><code>/db-action 修改员工表中成龙的工资为20000</code></td>
+<td><code>查员工表中,成龙的工资</code> <br>
+<code>修改员工表中成龙的工资为20000</code></td>
+<td><code> 修改员工表中成龙的工资为20000</code></td>
 </tr>
 </tbody>
 </table>
-<h1 id="github-cli-skill-示例">GitHub CLI Skill 示例</h1>
-<p>除了数据库场景，GitHub
-操作也很适合被封装成一个可复用技能。<code>gh</code>
-命令可以统一管理仓库、Issue、PR、分支、提交记录和
-Release，同时通过认证检查和确认机制降低误操作风险。</p>
-<table>
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 72%" />
-</colgroup>
-<thead>
-<tr>
-<th>特征</th>
-<th>/github-cli</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>领域约束</strong></td>
-<td>限制操作范围（GitHub CLI）+ 统一命令风格</td>
-</tr>
-<tr>
-<td><strong>安全网</strong></td>
-<td>认证状态检查 + 参数展示 + 确认机制 + 破坏性操作拦截</td>
-</tr>
-<tr>
-<td><strong>学习价值</strong></td>
-<td>展示“工具型技能”封装方式：命令、参数、输出处理、风险控制</td>
-</tr>
-<tr>
-<td><strong>业务适配</strong></td>
-<td>适合仓库、Issue、PR、分支、Release 等日常 GitHub 工作</td>
-</tr>
-<tr>
-<td><strong>用例</strong></td>
-<td><code>/github-cli 检查目前有几个PR待审批</code></td>
-</tr>
-</tbody>
-</table>
+<h2 id="通过-db_query_agent-查询数据库">通过 DB_Query_Agent
+查询数据库</h2>
+<div class="mermaid">flowchart LR
+    Agent[DB_Query_Agent]
+    Agent --> Dictionary[数据字典\n业务术语映射]
+    Dictionary --> Guard{SQL 安全校验\n仅 SELECT / WITH}
+    Guard -->|通过| Cli[db_connect_query.py]
+    Guard -->|拒绝| Clarify[拒绝或请求澄清]
+    Cli --> Environment{环境路由}
+    Environment -->|默认| Dev[(DEV 数据库)]
+    Environment -->|UAT 前缀| Uat[(UAT 数据库)]
+    Dev --> Result[Markdown 查询结果]
+    Uat --> Result
+    Result --> Agent</div>
+<h2 id="通过-db_action_agent-修改数据库">通过 DB_Action_Agent
+修改数据库</h2>
+<div class="mermaid">flowchart LR
+    Agent[DB_Action_Agent]
+    Agent --> Dictionary[数据字典\n业务术语映射]
+    Dictionary --> Guard{SQL 安全校验\n允许 DML，必须有 WHERE}
+    Guard -->|通过| Preview[展示精确 SQL\n等待明确批准]
+    Guard -->|拒绝| Clarify[拒绝或请求澄清]
+    Preview --> Approval{用户批准?}
+    Approval -->|否| Stop[不执行]
+    Approval -->|是，SQL 不变| Cli[db_connect_action.py]
+    Cli --> Environment{环境路由}
+    Environment -->|默认| Dev[(DEV 数据库)]
+    Environment -->|UAT 前缀| Uat[(UAT 数据库)]
+    Dev --> Result[执行结果]
+    Uat --> Result
+    Result --> Agent</div>
 <h1 id="解决方案-3copilot-approvals-and-permissions">解决方案 3：Copilot
 Approvals And Permissions</h1>
 <p>Permission levels are the high-level control for how much autonomy
@@ -853,55 +845,7 @@ automatically responds</strong> to clarifying questions.</td>
 <h1 id="解决方案-4-ai-memory">解决方案 4: AI Memory</h1>
 <p>The memory tool is a built-in agent tool that allows agents to save
 and recall notes as they work</p>
-<h2 id="memory-tool-vs.-copilot-memory">Memory tool vs. Copilot
-Memory</h2>
-<table>
-<colgroup>
-<col style="width: 38%" />
-<col style="width: 26%" />
-<col style="width: 34%" />
-</colgroup>
-<thead>
-<tr>
-<th></th>
-<th>Memory tool</th>
-<th>Copilot Memory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Storage</strong></td>
-<td>Local (on your machine)</td>
-<td>GitHub-hosted (remote)</td>
-</tr>
-<tr>
-<td><strong>Scopes</strong></td>
-<td>User, repository, session</td>
-<td>Repository only</td>
-</tr>
-<tr>
-<td><strong>Shared across Copilot surfaces</strong></td>
-<td>No (VS Code only)</td>
-<td>Yes (coding agent, code review, CLI)</td>
-</tr>
-<tr>
-<td><strong>Created by</strong></td>
-<td>You or the agent during chat</td>
-<td>Copilot agents automatically</td>
-</tr>
-<tr>
-<td><strong>Enabled by default</strong></td>
-<td>Yes</td>
-<td>No (opt-in)</td>
-</tr>
-<tr>
-<td><strong>Expiration</strong></td>
-<td>Manual management</td>
-<td>Automatic (28 days)</td>
-</tr>
-</tbody>
-</table>
-<h1 id="不同memory-tool类型">不同Memory tool类型</h1>
+<h2 id="memory-tool">Memory tool</h2>
 <table>
 <colgroup>
 <col style="width: 15%" />
@@ -952,20 +896,21 @@ Memory</h2>
     A[AI]-->B[Markdown];
     B-->|pwsh| C(HTML);</div>
 <h2 id="prompt">Prompt</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode md"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>/plan</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>我想你做个PowerShell脚本帮我把md文档转换成html，要求输出的格式简约，但是不失美感，符合商业场景的使用。</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>我要你支持markdown高级图表处理, 包括Mermaid图表</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>脚本要自动从markdown文件中提取第一个标题作为HTML的标题</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>脚本解决pandoc生成的标题重复问题。</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>CSS内嵌到HTML文件中</span></code></pre></div>
 <h2 id="smoke-test">Smoke Test</h2>
-<pre class="shell"><code>pwsh -File ./Convert-MarkdownToHtml.ps1 \
-                       -InputFile test.md \
-                      -OutputFile test.html</code></pre>
+<pre class="shell"><code>pwsh -File ./02Development_Zone/Convert-MarkdownToHtml.ps1 \
+        -InputFile vibe-coding.md \
+        -OutputFile vibe-coding.html</code></pre>
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({ startOnLoad: true, theme: "default" });</script>
 </body>

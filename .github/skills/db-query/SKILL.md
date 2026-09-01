@@ -69,6 +69,7 @@ Example: For `ADDRESS` column, reference shows it maps to `家庭住址` (home a
 
 3. **Example Issue Encountered**:
    - ❌ Assumed: LAST_NAME='范', FIRST_NAME='冰冰' (standard order)
+   
    - ✅ Actual DB: LAST_NAME='冰冰', FIRST_NAME='范' (reversed order)
    - Impact: Multiple retry queries needed; efficiency reduced
 
